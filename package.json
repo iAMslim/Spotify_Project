@@ -1,0 +1,32 @@
+{
+  "scripts": {
+    "dev": "npm-run-all --parallel start src",
+    "start": "node server",
+    "src": "cd src/ && npm run dev",
+    "test": "jest",
+    "server": "node server"
+  },
+  "dependencies": {
+    "all": "^0.0.0",
+    "axios": "^1.6.7",
+    "nodemon": "^3.1.0",
+    "path": "^0.12.7",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-redux": "^9.1.0",
+    "react-router-dom": "^6.22.3",
+    "redux": "^5.0.1",
+    "run": "^1.5.0",
+    "run-all": "^1.0.1",
+    "styled": "^1.0.0",
+    "styled-components": "^6.1.8"
+  },
+  "devDependencies": {
+    "dotenv": "^10.0.0",
+    "express": "^4.18.3",
+    "http-proxy-middleware": "^2.0.6",
+    "npm-run-all": "^4.1.5",
+    "request": "^2.88.2",
+    "vite-plugin-proxy": "^0.5.0"
+  }
+}
