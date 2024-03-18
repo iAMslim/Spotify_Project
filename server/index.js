@@ -1,6 +1,6 @@
-const express = require("express");
-const dotenv = require("dotenv");
-const request = require("request");
+import express from "express";
+import dotenv from "dotenv";
+import request from "request";
 
 const port = 5000;
 
@@ -26,20 +26,36 @@ const generateRandomString = (length) => {
 const app = express();
 
 app.get("/auth/login", (req, res) => {
-  const scope = "streaming user-read-email user-read-private";
+
+  const scopes = [
+    "streaming",
+    "user-read-email",
+    "user-read-private",
+    "user-library-read",
+    "user-library-modify",
+    "user-modify-playback-state",
+    "user-read-playback-state",
+    "playlist-read-private",
+    "playlist-modify-public",
+    "user-follow-modify",
+    "user-follow-read"
+  ];
+
+ 
   const state = generateRandomString(16);
 
-  const auth_query_parameters = new URLSearchParams({
+  const authQueryParameters = new URLSearchParams({
     response_type: "code",
-    client_id: client_id,
-    scope: scope,
-    redirect_uri: redirect_uri,
+    client_id: client_id, 
+    scope: scopes.join(" "), 
+    redirect_uri: redirect_uri, 
     state: state,
   });
 
+  
   res.redirect(
     "https://accounts.spotify.com/authorize/?" +
-      auth_query_parameters.toString()
+      authQueryParameters.toString()
   );
 });
 
@@ -78,4 +94,4 @@ app.listen(port, () => {
   console.log(`Listening at http://localhost:${port}`);
 });
 
-module.exports = app;
+export default app;

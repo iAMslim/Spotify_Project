@@ -22,7 +22,7 @@ function WebPlayback(props) {
 
       script.onload = () => {
         window.onSpotifyWebPlaybackSDKReady = () => {
-          const player = new window.Spotify.Player({
+          const player = new Spotify.Player({
             name: "Web Playback SDK",
             getOAuthToken: (cb) => {
               cb(props.token);

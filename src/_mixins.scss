@@ -1,0 +1,11 @@
+// flex to center
+@mixin flexDirection($direction) {
+    display: flex;
+    flex-direction: $direction;
+  }
+  
+  @mixin justifyContent($direction) {
+    justify-content: $direction;
+    align-items: $direction;
+  }
+  

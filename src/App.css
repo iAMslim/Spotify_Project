@@ -117,3 +117,8 @@ body {
 img {
   background: transparent;
 }
+.App {
+  color: bisque;
+  align-items: center;
+  text-align: center;
+}
