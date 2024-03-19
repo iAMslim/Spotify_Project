@@ -2,13 +2,17 @@ import express from "express";
 import dotenv from "dotenv";
 import request from "request";
 
+
 const port = 5000;
+
+global.access_token = ""
 
 dotenv.config();
 
 const client_id = process.env.CLIENT_ID;
 const client_secret = process.env.CLIENT_SECRET;
-const redirect_uri = "http://localhost:3000/auth/callback";
+
+var redirect_uri = "http://localhost:3000/auth/callback";
 
 let access_token = "";
 
@@ -26,36 +30,19 @@ const generateRandomString = (length) => {
 const app = express();
 
 app.get("/auth/login", (req, res) => {
-
-  const scopes = [
-    "streaming",
-    "user-read-email",
-    "user-read-private",
-    "user-library-read",
-    "user-library-modify",
-    "user-modify-playback-state",
-    "user-read-playback-state",
-    "playlist-read-private",
-    "playlist-modify-public",
-    "user-follow-modify",
-    "user-follow-read"
-  ];
-
- 
+  const scope = ["streaming", "user-read-email", "user-read-private"];
   const state = generateRandomString(16);
 
   const authQueryParameters = new URLSearchParams({
     response_type: "code",
-    client_id: client_id, 
-    scope: scopes.join(" "), 
-    redirect_uri: redirect_uri, 
+    client_id: client_id,
+    scope: scope,
+    redirect_uri: redirect_uri,
     state: state,
   });
 
-  
   res.redirect(
-    "https://accounts.spotify.com/authorize/?" +
-      authQueryParameters.toString()
+    "https://accounts.spotify.com/authorize/?" + authQueryParameters.toString()
   );
 });
 
