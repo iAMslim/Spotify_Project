@@ -1,18 +1,16 @@
-import React from "react";
 import styled from "styled-components";
 import {
   BsFillPlayCircleFill,
   BsFillPauseCircleFill,
-  BsShuffle,
+  // BsShuffle,
 } from "react-icons/bs";
 import { CgPlayTrackNext, CgPlayTrackPrev } from "react-icons/cg";
-import { FiRepeat } from "react-icons/fi";
-import { useStateProvider } from "../utils/StateProvider";
+// import { FiRepeat } from "react-icons/fi";
+import { useStateProvider } from "../../utils/StateProvider";
 import axios from "axios";
-import { reducerCases } from "../utils/Constant";
+import { reducerCases } from "../../utils/Constant";
 
 export default function PlayerControls() {
-    
   const [{ token, playerState }, dispatch] = useStateProvider();
 
   const changeState = async () => {
@@ -67,9 +65,9 @@ export default function PlayerControls() {
   };
   return (
     <Container>
-      <div className="shuffle">
+      {/* <div className="shuffle">
         <BsShuffle />
-      </div>
+      </div> */}
       <div className="previous">
         <CgPlayTrackPrev onClick={() => changeTrack("previous")} />
       </div>
@@ -83,9 +81,9 @@ export default function PlayerControls() {
       <div className="next">
         <CgPlayTrackNext onClick={() => changeTrack("next")} />
       </div>
-      <div className="repeat">
+      {/* <div className="repeat">
         <FiRepeat />
-      </div>
+      </div> */}
     </Container>
   );
 }

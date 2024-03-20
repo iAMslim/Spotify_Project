@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import styled from "styled-components";
 import axios from "axios";
-import { useStateProvider } from "../utils/StateProvider";
-import { reducerCases } from "../utils/Constant";
+import { useStateProvider } from "../../utils/StateProvider";
+import { reducerCases } from "../../utils/Constant";
 
 export default function CurrentTrack() {
   const [{ token, currentPlaying }, dispatch] = useStateProvider();
@@ -17,6 +17,7 @@ export default function CurrentTrack() {
           },
         }
       );
+      console.log(response);
       if (response.data !== "") {
         const currentPlaying = {
           id: response.data.item.id,

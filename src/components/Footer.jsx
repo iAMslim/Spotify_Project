@@ -1,9 +1,7 @@
-import React from "react";
 import styled from "styled-components";
-import CurrentTrack from "./CurrentTrack";
-
-import PlayerControls from "./PlayerControls";
-import Volume from "./Volume";
+import CurrentTrack from "./musicPlayer/CurrentTrack";
+import PlayerControls from "./musicPlayer/PlayerControls";
+import Volume from "./musicPlayer/Volume";
 export default function Footer() {
   return (
     <Container>
@@ -17,7 +15,7 @@ export default function Footer() {
 const Container = styled.div`
   height: 100%;
   width: 100%;
-  background-color: #181818;
+  background-color: black;
   border-top: 1px solid #282828;
   display: grid;
   grid-template-columns: 1fr 2fr 1fr;

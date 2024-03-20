@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import styled from "styled-components";
 import { useStateProvider } from "../utils/StateProvider";
 import { AiFillClockCircle } from "react-icons/ai";
@@ -154,7 +154,7 @@ export default function Body({ headerBackground }) {
                         </div>
                         <div className="info">
                           <span className="name">{name}</span>
-                          <span>{artists}</span>
+                          <span>{artists.join(", ")}</span>
                         </div>
                       </div>
                       <div className="col">
@@ -205,11 +205,11 @@ const Container = styled.div`
       margin: 1rem 0 0 0;
       color: #dddcdc;
       position: sticky;
-      top: 15vh;
+      top: 5vh;
       padding: 1rem 3rem;
       transition: 0.3s ease-in-out;
       background-color: ${({ headerBackground }) =>
-        headerBackground ? "#000000dc" : "none"};
+        headerBackground ? "#181818" : "none"};
     }
     .tracks {
       margin: 0 2rem;
@@ -219,7 +219,7 @@ const Container = styled.div`
       .row {
         padding: 0.5rem 1rem;
         display: grid;
-        grid-template-columns: 0.3fr 3.1fr 2fr 0.1fr;
+        grid-template-columns: 0.3fr 3fr 2fr 0.1fr;
         &:hover {
           background-color: rgba(0, 0, 0, 0.7);
         }
