@@ -1,9 +1,9 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import "./App.css";
-import { Route, Routes } from "react-router-dom";
-import Home from "./components/Home";
+// import { Route, Routes } from "react-router-dom";
+// import Home from "./components/Home";
 import Login from "./components/Login";
-import Spotify from "./components/Spotify"
+import Spotify from "./components/Spotify";
 import { reducerCases } from "./utils/Constant";
 import { useStateProvider } from "./utils/StateProvider";
 
@@ -36,21 +36,10 @@ function App() {
         dispatch({ type: reducerCases.SET_TOKEN, token });
       }
     }
-    document.title = "Spotify";
+    document.title = "Beatbox";
   }, [dispatch, token]);
 
-  return (
-    <>
-    {token ? <Spotify /> : <Login />}
-    <div>
-      <Routes>
-        <Route path="/home" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/" element={<Home />} />
-      </Routes>
-    </div>
-  </>
-);
+  return <>{token ? <Spotify /> : <Login />}</>;
 }
 
 export default App;

@@ -2,12 +2,52 @@ import styled from "styled-components";
 import { useStateProvider } from "../utils/StateProvider";
 // import { FaSearch } from "react-icons/fa";
 import { CgProfile } from "react-icons/cg";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { reducerCases } from "../utils/Constant";
+
 export default function Navbar({ navBackground }) {
-  const [{ userInfo }] = useStateProvider();
+  const [{ userInfo }, { token }, dispatch] = useStateProvider();
+  const [searchKey, setSearchKey] = useState("");
+  const [artists, setArtists] = useState([]);
+
+  // useEffect(() => {
+  //   const hash = window.location.hash;
+  //   if (hash) {
+  //     const token = hash.substring(1).split("&")[0].split("=")[1];
+  //     if (token) {
+  //       dispatch({ type: reducerCases.SET_TOKEN, token });
+  //     }
+  //   }
+  // }, [dispatch, token]);
+
+  // useEffect(() => {
+  //   const search = async (album) => {
+  //     const response = await axios.get("https://api.spotify.com/v1/search", {
+  //       headers: {
+  //         Authorization: "Bearer " + token,
+  //         "Content-Type": "application/json",
+  //       },
+  //       params: {
+  //         q: album,
+  //         type: "artist",
+  //       },
+  //     });
+  //     const { artists } = response.data;
+  //     console.log(response.data);
+  //   };
+  // });
+
   return (
     <Container navBackground={navBackground}>
       {/* <div className="search__bar">
         <FaSearch />
+        <input
+          type="text"
+          value={searchKey}
+          onChange={handleInputChange}
+          placeholder="Artists, songs, or podcasts"
+        />
         <input type="text" placeholder="Artists, songs, or podcasts" />
       </div> */}
       <div className="avatar">
@@ -16,10 +56,42 @@ export default function Navbar({ navBackground }) {
           <span>{userInfo?.name}</span>
         </a>
       </div>
+      <div>
+        <ArtistContainer>
+          {artists.map((artist) => (
+            <ArtistCard key={artist.id}>
+              {artist.images.length > 0 && (
+                <img
+                  src={artist.images[0].url}
+                  alt={artist.name}
+                  style={{ width: "auto", height: "250px" }}
+                />
+              )}
+              <p>{artist.name}</p>
+            </ArtistCard>
+          ))}
+        </ArtistContainer>
+      </div>
     </Container>
   );
 }
+const ArtistCard = styled.div`
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px 10px;
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
 
+const ArtistContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+`;
 const Container = styled.div`
   display: flex;
   justify-content: flex-end;

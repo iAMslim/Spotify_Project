@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import Sidebar from "./Sidebar";
 import styled from "styled-components";
-import Footer from "./Footer";
+import Footer from "./Player/Footer";
 import Navbar from "./NavBar";
 import axios from "axios";
 import { useStateProvider } from "../utils/StateProvider";
@@ -82,7 +82,8 @@ const Container = styled.div`
     grid-template-columns: 15vw 85vw;
     height: 100%;
     width: 100%;
-    background-color: black;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 1));
+    background-color: rgb(192, 31, 31);
     .body {
       background: linear-gradient(transparent, rgba(0, 0, 0, 1));
       background-color: rgb(32, 87, 100);

@@ -61,10 +61,6 @@ const PlaylistImage = styled.img`
 `;
 
 function Home() {
-  const CLIENT_ID = "3419d36f85604b6fb16bc730622cd529";
-  const REDIRECT_URI = "http://localhost:5173/home";
-  const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize";
-  const RESPONSE_TYPE = "token";
   const [token, setToken] = useState("");
   const [albums, setAlbums] = useState([]);
   const [playlists, setPlaylists] = useState([]);
@@ -135,10 +131,6 @@ function Home() {
 
   const handlePlaylistClick = (playlistId) => {
     window.location.href = `/playlist/playlists/${playlistId}`;
-  };
-
-  const authenticateWithSpotify = () => {
-    window.location.href = `${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`;
   };
 
   const logout = () => {

@@ -2,10 +2,9 @@ import express from "express";
 import dotenv from "dotenv";
 import request from "request";
 
-
 const port = 5000;
 
-global.access_token = ""
+global.access_token = "";
 
 dotenv.config();
 
