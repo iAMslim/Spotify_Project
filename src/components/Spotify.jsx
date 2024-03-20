@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Sidebar from "./Sidebar";
 import styled from "styled-components";
 import Footer from "./Footer";
@@ -76,17 +76,21 @@ const Container = styled.div`
   max-height: 100vh;
   overflow: hidden;
   display: grid;
-  grid-template-rows: 85vh 15vh;
+  grid-template-rows: 90vh 10vh;
   .spotify__body {
     display: grid;
     grid-template-columns: 15vw 85vw;
     height: 100%;
     width: 100%;
-    background: linear-gradient(transparent, rgba(0, 0, 0, 1));
-    background-color: rgb(32, 87, 100);
+    background-color: black;
     .body {
+      background: linear-gradient(transparent, rgba(0, 0, 0, 1));
+      background-color: rgb(32, 87, 100);
+      // border: 2px red solid;
+      border-radius: 0.5rem;
+      margin: 1rem;
       height: 100%;
-      width: 100%;
+      // width: 100%;
       overflow: auto;
       &::-webkit-scrollbar {
         width: 0.7rem;
@@ -97,4 +101,7 @@ const Container = styled.div`
       }
     }
   }
+  // .spotify__footer {
+  //  height: 4rem;
+  // }
 `;

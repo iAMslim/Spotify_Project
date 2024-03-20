@@ -1,7 +1,7 @@
 import axios from "axios";
-import React from "react";
+import { FaVolumeUp } from "react-icons/fa";
 import styled from "styled-components";
-import { useStateProvider } from "../utils/StateProvider";
+import { useStateProvider } from "../../utils/StateProvider";
 
 export default function Volume() {
   const [{ token }] = useStateProvider();
@@ -22,6 +22,9 @@ export default function Volume() {
   };
   return (
     <Container>
+      <div>
+        <FaVolumeUp style={{ fontSize: "1.5rem", color: "white" }} />
+      </div>
       <input type="range" onMouseUp={(e) => setVolume(e)} min={0} max={100} />
     </Container>
   );
@@ -32,6 +35,7 @@ const Container = styled.div`
   justify-content: flex-end;
   align-content: center;
   input {
+    padding: 2px;
     width: 15rem;
     border-radius: 2rem;
     height: 0.5rem;

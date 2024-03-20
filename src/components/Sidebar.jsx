@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 import { MdHomeFilled, MdSearch } from "react-icons/md";
 import { IoLibrary } from "react-icons/io5";
@@ -15,21 +14,33 @@ export default function Sidebar() {
           />
         </div>
         <ul>
-          <li>
-            <MdHomeFilled />
-            <span>Home</span>
-          </li>
-          <li>
-            <MdSearch />
-            <span>Search</span>
-          </li>
-          <li>
-            <IoLibrary />
-            <span>Your Library</span>
-          </li>
+          <div className="card">
+            <li>
+              <span>
+                <MdHomeFilled />
+              </span>
+              <span>Home</span>
+            </li>
+            <br />
+            <li>
+              <span>
+                <MdSearch />
+              </span>
+              <span>Search</span>
+            </li>
+          </div>
+          <div className="card">
+            <li>
+              <span>
+                <IoLibrary />
+              </span>
+              <span>Your Library</span>
+            </li>
+            <br />
+            <Playlists />
+          </div>
         </ul>
       </div>
-      <Playlists />
     </Container>
   );
 }
@@ -52,19 +63,24 @@ const Container = styled.div`
         block-size: auto;
       }
     }
+    .card {
+      background-color: #181818;
+      border-radius: 0.5rem;
+      padding: 1rem 0.5rem;
+    }
     ul {
       list-style-type: none;
       display: flex;
       flex-direction: column;
       gap: 1rem;
-      padding: 1rem;
+      padding: 0.5rem;
       li {
         display: flex;
         gap: 1rem;
         cursor: pointer;
         transition: 0.3s ease-in-out;
         &:hover {
-          color: white;
+          color: gray;
         }
       }
     }

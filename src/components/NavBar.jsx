@@ -1,16 +1,15 @@
-import React from "react";
 import styled from "styled-components";
 import { useStateProvider } from "../utils/StateProvider";
-import { FaSearch } from "react-icons/fa";
+// import { FaSearch } from "react-icons/fa";
 import { CgProfile } from "react-icons/cg";
 export default function Navbar({ navBackground }) {
   const [{ userInfo }] = useStateProvider();
   return (
     <Container navBackground={navBackground}>
-      <div className="search__bar">
+      {/* <div className="search__bar">
         <FaSearch />
         <input type="text" placeholder="Artists, songs, or podcasts" />
-      </div>
+      </div> */}
       <div className="avatar">
         <a href={userInfo?.userUrl}>
           <CgProfile />
@@ -23,15 +22,15 @@ export default function Navbar({ navBackground }) {
 
 const Container = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
-  padding: 2rem;
-  height: 15vh;
+  padding: 1rem 2rem 1rem 1rem;
+  height: 5vh;
   position: sticky;
   top: 0;
   transition: 0.3s ease-in-out;
   background-color: ${({ navBackground }) =>
-    navBackground ? "rgba(0,0,0,0.7)" : "none"};
+    navBackground ? "#181818" : "none"};
   .search__bar {
     background-color: white;
     width: 30%;
@@ -50,12 +49,12 @@ const Container = styled.div`
     }
   }
   .avatar {
-    background-color: black;
+    background-color: #181818;
     padding: 0.3rem 0.4rem;
     padding-right: 1rem;
     border-radius: 2rem;
     display: flex;
-    justify-content: center;
+    justify-content: ;
     align-items: center;
     a {
       display: flex;
