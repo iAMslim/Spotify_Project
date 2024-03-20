@@ -30,7 +30,6 @@ export default function Sidebar() {
           </li>
         </ul>
       </div>
-      <Playlists />
     </Container>
   );
 }
@@ -53,19 +52,24 @@ const Container = styled.div`
         block-size: auto;
       }
     }
+    .card {
+      background-color: #181818;
+      border-radius: 0.5rem;
+      padding: 1rem 0.5rem;
+    }
     ul {
       list-style-type: none;
       display: flex;
       flex-direction: column;
       gap: 1rem;
-      padding: 1rem;
+      padding: 0.5rem;
       li {
         display: flex;
         gap: 1rem;
         cursor: pointer;
         transition: 0.3s ease-in-out;
         &:hover {
-          color: white;
+          color: gray;
         }
       }
     }
