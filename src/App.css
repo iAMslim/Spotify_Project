@@ -1,4 +1,4 @@
-* {
+/* * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -43,8 +43,9 @@ body {
   background-size: cover;
   background-position: center center;
   /*filter: blur(8em) opacity(0.6);*/
-  position: absolute;
-}
+/* position: absolute; */
+
+/* 
 
 .main-wrapper {
   padding-top: 45px;
@@ -121,4 +122,4 @@ img {
   color: bisque;
   align-items: center;
   text-align: center;
-}
+}  */

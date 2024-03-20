@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import styled from "styled-components";
 import { reducerCases } from "../utils/Constant";
 import { useStateProvider } from "../utils/StateProvider";
