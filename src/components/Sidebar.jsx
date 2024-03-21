@@ -29,7 +29,7 @@ function Sidebar() {
             </Link>
           </li>
           <li>
-            <Link to="/library">
+            <Link to="/tracks">
               <IoLibrary />
               <span>Your Library</span>
             </Link>

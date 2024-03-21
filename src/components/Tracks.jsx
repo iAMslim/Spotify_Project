@@ -1,46 +1,51 @@
 import axios from "axios";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { reducerCases } from "../utils/Constant";
-import { useStateProvider } from "../utils/StateProvider";
 
 function Tracks() {
-  const [{ token, tracks }, dispatch] = useStateProvider();
+  const [token, setToken] = useState("");
+  const [tracks, setTracks] = useState([]);
 
   useEffect(() => {
     const hash = window.location.hash;
-    let newToken = null;
-    
-    if (hash) {
-      newToken = hash
+    let accessToken = window.localStorage.getItem("token");
+    if (!accessToken && hash) {
+      accessToken = hash
         .substring(1)
         .split("&")
         .find((elem) => elem.startsWith("access_token"))
-        ?.split("=")[1];
-
+        .split("=")[1];
       window.location.hash = "";
+      window.localStorage.setItem("token", accessToken);
     }
-    
-    if (newToken) {
+    setToken(accessToken);
+  }, []);
+
+  useEffect(() => {
+    if (token) {
+      console.log("Fetching user's saved tracks...");
       axios
         .get("https://api.spotify.com/v1/me/tracks", {
           headers: {
-            Authorization: `Bearer ${newToken}`,
+            Authorization: `Bearer ${token}`,
           },
         })
         .then((response) => {
+          console.log("Tracks fetched:", response.data);
           const { items } = response.data;
           const parsedTracks = items.map(({ track }) => ({
             name: track.name,
             id: track.id,
           }));
-          dispatch({ type: reducerCases.SET_TRACKS, tracks: parsedTracks });
+          console.log("Parsed tracks:", parsedTracks);
+          setTracks(parsedTracks);
         })
         .catch((error) => {
           console.error("Error fetching tracks:", error);
         });
     }
-  }, [dispatch]);
+  }, [token]);
 
   const changeCurrentTrack = (selectedTrackId) => {
     dispatch({ type: reducerCases.SET_TRACK_ID, selectedTrackId });

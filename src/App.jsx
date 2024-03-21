@@ -7,7 +7,7 @@ import Spotify from "./components/Spotify";
 import User from "./components/User";
 import { reducerCases } from "./utils/Constant";
 import { useStateProvider } from "./utils/StateProvider";
-import Library from "./components/Library";
+import Tracks from "./components/Tracks";
 
 function App() {
   const [{ token }, dispatch] = useStateProvider();
@@ -31,7 +31,7 @@ function App() {
           <Route path="/home" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/user/:userid" element={<User />} />
-            <Route path="/library" element={<Library />} />
+            <Route path="/tracks" element={<Tracks />} />
           </Routes>
         </div>
       </div>
