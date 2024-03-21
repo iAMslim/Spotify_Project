@@ -1,9 +1,9 @@
 import axios from "axios";
 import { useEffect } from "react";
 import styled from "styled-components";
-import { useStateProvider } from "../utils/StateProvider";
+import { useStateProvider } from "../../utils/StateProvider";
 import { AiFillClockCircle } from "react-icons/ai";
-import { reducerCases } from "../utils/Constant";
+import { reducerCases } from "../../utils/Constant";
 
 export default function SelectedPlaylist({ headerBackground }) {
   const [{ token, selectedPlaylist, selectedPlaylistId }, dispatch] =
@@ -154,7 +154,7 @@ export default function SelectedPlaylist({ headerBackground }) {
                         </div>
                         <div className="info">
                           <span className="name">{name}</span>
-                          <span>{artists}</span>
+                          <span>{artists.join(", ")}</span>
                         </div>
                       </div>
                       <div className="col">

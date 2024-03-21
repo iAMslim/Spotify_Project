@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import Login from "./components/Login";
-import Spotify from "./components/Spotify";
 import { reducerCases } from "./utils/Constant";
 import { useStateProvider } from "./utils/StateProvider";
+import Home from "./components/Home/Home";
 
 function App() {
   const [{ token }, dispatch] = useStateProvider();
@@ -17,7 +17,7 @@ function App() {
     document.title = "Beatbox";
   }, [dispatch, token]);
 
-  return <>{token ? <Spotify /> : <Login />}</>;
+  return <>{token ? <Home /> : <Login />}</>;
 }
 
 export default App;

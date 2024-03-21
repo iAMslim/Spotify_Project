@@ -1,17 +1,19 @@
 import styled from "styled-components";
 import { useStateProvider } from "../utils/StateProvider";
 import { CgProfile } from "react-icons/cg";
+import { useNavigate } from "react-router-dom";
 
 export default function Navbar({ navBackground }) {
   const [{ userInfo }, { token }, dispatch] = useStateProvider();
+  const navigate = useNavigate();
 
   return (
     <Container navBackground={navBackground}>
       <div className="avatar">
-        <a href={userInfo?.userUrl}>
+        <div className="avatar-link" onClick={() => navigate("/profile")}>
           <CgProfile />
           <span>{userInfo?.name}</span>
-        </a>
+        </div>
       </div>
     </Container>
   );
@@ -35,7 +37,7 @@ const Container = styled.div`
     display: flex;
     justify-content: ;
     align-items: center;
-    a {
+    .avatar-link {
       display: flex;
       justify-content: center;
       align-items: center;

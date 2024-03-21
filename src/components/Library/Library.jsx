@@ -1,14 +1,14 @@
 import { useEffect, useRef, useState } from "react";
-import Sidebar from "./Sidebar";
 import styled from "styled-components";
-import Navbar from "./NavBar";
-import Footer from "./MusicPlayer/Footer";
+import Navbar from "../NavBar";
+import Sidebar from "../Sidebar";
+import Footer from "../MusicPlayer/Footer";
 import axios from "axios";
-import { useStateProvider } from "../utils/StateProvider";
-import Body from "./Body";
-import { reducerCases } from "../utils/Constant";
+import { useStateProvider } from "../../utils/StateProvider";
+import { reducerCases } from "../../utils/Constant";
+import LibraryBody from "./LibraryBody";
 
-export default function Spotify() {
+export default function Library() {
   const [{ token }, dispatch] = useStateProvider();
   const [navBackground, setNavBackground] = useState(false);
   const [headerBackground, setHeaderBackground] = useState(false);
@@ -60,7 +60,7 @@ export default function Spotify() {
         <div className="body" ref={bodyRef} onScroll={bodyScrolled}>
           <Navbar navBackground={navBackground} />
           <div className="body__contents">
-            <Body headerBackground={headerBackground} />
+            <LibraryBody headerBackground={headerBackground} />
           </div>
         </div>
       </div>
