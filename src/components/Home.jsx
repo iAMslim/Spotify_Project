@@ -96,7 +96,7 @@ function Home() {
             Authorization: `Bearer ${token}`,
           },
           params: {
-            limit: 20, // Adjust as needed
+            limit: 30, // Adjust as needed
           },
         }
       );
@@ -115,7 +115,7 @@ function Home() {
             Authorization: `Bearer ${token}`,
           },
           params: {
-            limit: 20, // Adjust as needed
+            limit: 30, // Adjust as needed
           },
         }
       );
