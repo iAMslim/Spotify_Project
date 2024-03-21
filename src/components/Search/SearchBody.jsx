@@ -1,9 +1,25 @@
+import { useEffect, useState } from "react";
 import axios from "axios";
 import styled from "styled-components";
-import { FaSearch } from "react-icons/fa";
-import { useState, useEffect } from "react";
+const ArtistCard = styled.div`
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px 10px;
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
 
-export default function Search({ navBackground }) {
+const ArtistContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+`;
+
+export default function SearchBody() {
   const [token, setToken] = useState("");
   const [searchKey, setSearchKey] = useState("");
   const [artists, setArtists] = useState([]);
@@ -83,14 +99,13 @@ export default function Search({ navBackground }) {
   };
 
   return (
-    <Container navBackground={navBackground}>
-      <div className="search__bar">
-        <FaSearch />
+    <div className="App">
+      <div>
         <input
           type="text"
           value={searchKey}
           onChange={handleInputChange}
-          placeholder="Artists, songs, or podcasts"
+          placeholder="Search for an artist"
         />
         <ArtistContainer>
           {artists.map((artist) => (
@@ -121,54 +136,6 @@ export default function Search({ navBackground }) {
           ))}
         </ArtistContainer>
       </div>
-    </Container>
+    </div>
   );
 }
-
-const Container = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 2rem;
-  height: 15vh;
-  position: sticky;
-  top: 0;
-  transition: 0.3s ease-in-out;
-  background-color: ${({ navBackground }) =>
-    navBackground ? "rgba(0,0,0,0.7)" : "none"};
-  .search__bar {
-    background-color: white;
-    width: 30%;
-    padding: 0.4rem 1rem;
-    border-radius: 2rem;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    input {
-      border: none;
-      height: 2rem;
-      width: 100%;
-      &:focus {
-        outline: none;
-      }
-    }
-  }
-`;
-
-const ArtistCard = styled.div`
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  padding: 10px;
-  margin: 10px 10px;
-  width: 300px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
-
-const ArtistContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
-`;

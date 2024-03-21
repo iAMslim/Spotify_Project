@@ -5,11 +5,12 @@ import "./index.css";
 import { BrowserRouter } from "react-router-dom";
 import { StateProvider } from "./utils/StateProvider.jsx";
 import { Routes, Route } from "react-router-dom";
-
 import reducer, { initialState } from "./utils/Reducer";
-import Home from "./components/Home.jsx";
 import Login from "./components/Login.jsx";
-import Search from "./components/Search.jsx";
+import Featured from "./components/Featured/Featured.jsx";
+import Search from "./components/Search/Search.jsx";
+import Library from "./components/Library/Library.jsx";
+import Profile from "./components/Profile/Profile.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
@@ -17,9 +18,12 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       <StateProvider initialState={initialState} reducer={reducer}>
         <Routes>
           <Route path="/" element={<App />} />
-          <Route path="/home" element={<Home />} />
+          <Route path="*" element={<App />} />
           <Route path="/login" element={<Login />} />
           <Route path="/search" element={<Search />} />
+          <Route path="/featured" element={<Featured />} />
+          <Route path="/library" element={<Library />} />
+          <Route path="/profile" element={<Profile />} />
         </Routes>
       </StateProvider>
     </BrowserRouter>
