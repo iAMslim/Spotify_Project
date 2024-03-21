@@ -7,6 +7,7 @@ export default function Login() {
     const redirect_uri = "http://localhost:5173";
     const api_uri = "https://accounts.spotify.com/authorize";
     const scope = [
+      "ugc-image-upload",
       "user-read-private",
       "user-read-email",
       "user-modify-playback-state",
@@ -14,6 +15,18 @@ export default function Login() {
       "user-read-currently-playing",
       "user-read-recently-played",
       "user-top-read",
+      "app-remote-control",
+      "streaming",
+      "playlist-read-private",
+      "playlist-read-collaborative",
+      "playlist-modify-public",
+      "playlist-modify-private",
+      "playlist-read-private",
+      "user-follow-read",
+      "user-follow-modify",
+      "user-library-read",
+      "user-library-modify",
+      "user-read-playback-position",
     ];
     window.location.href = `${api_uri}?client_id=${client_id}&redirect_uri=${redirect_uri}&scope=${scope.join(
       " "
