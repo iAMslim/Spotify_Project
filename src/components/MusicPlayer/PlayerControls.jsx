@@ -2,14 +2,10 @@ import styled from "styled-components";
 import {
   BsFillPlayCircleFill,
   BsFillPauseCircleFill,
-  // BsShuffle,
+  BsShuffle,
 } from "react-icons/bs";
 import { CgPlayTrackNext, CgPlayTrackPrev } from "react-icons/cg";
-<<<<<<<< HEAD:src/components/Player/PlayerControls.jsx
 import { FiRepeat } from "react-icons/fi";
-========
-// import { FiRepeat } from "react-icons/fi";
->>>>>>>> main:src/components/musicPlayer/PlayerControls.jsx
 import { useStateProvider } from "../../utils/StateProvider";
 import axios from "axios";
 import { reducerCases } from "../../utils/Constant";
@@ -69,17 +65,14 @@ export default function PlayerControls() {
   };
   return (
     <Container>
-      {/* <div className="shuffle">
+      <div className="shuffle">
         <BsShuffle />
-<<<<<<<< HEAD:src/components/Player/PlayerControls.jsx
       </div>
-      {/* shuffle button not functional */}
-========
-      </div> */}
->>>>>>>> main:src/components/musicPlayer/PlayerControls.jsx
+
       <div className="previous">
         <CgPlayTrackPrev onClick={() => changeTrack("previous")} />
       </div>
+
       <div className="state">
         {playerState ? (
           <BsFillPauseCircleFill onClick={changeState} />
@@ -87,17 +80,14 @@ export default function PlayerControls() {
           <BsFillPlayCircleFill onClick={changeState} />
         )}
       </div>
+
       <div className="next">
         <CgPlayTrackNext onClick={() => changeTrack("next")} />
       </div>
-      {/* <div className="repeat">
+
+      <div className="repeat">
         <FiRepeat />
-<<<<<<<< HEAD:src/components/Player/PlayerControls.jsx
       </div>
-      {/* repeat button not functional */}
-========
-      </div> */}
->>>>>>>> main:src/components/musicPlayer/PlayerControls.jsx
     </Container>
   );
 }

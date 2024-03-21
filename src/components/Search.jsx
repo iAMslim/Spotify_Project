@@ -1,60 +1,9 @@
 import axios from "axios";
 import styled from "styled-components";
-
-import { useStateProvider } from "../utils/StateProvider";
 import { FaSearch } from "react-icons/fa";
-import { CgProfile } from "react-icons/cg";
 import { useState, useEffect } from "react";
 
 export default function Search({ navBackground }) {
-  // const [{ userInfo }, { token }, dispatch] = useStateProvider();
-
-  // const [searchKey, setSearchKey] = useState("");
-  // const [artists, setArtists] = useState([]);
-
-  // useEffect(() => {
-  //   const hash = window.location.hash;
-  //   let token = window.localStorage.getItem("token");
-  //   if (!token && hash) {
-  //     token = hash
-  //       .substring(1)
-  //       .split("&")
-  //       .find((elem) => elem.startsWith("access_token"))
-  //       .split("=")[1];
-  //     window.location.hash = "";
-  //     window.localStorage.setItem("token", token);
-  //   }
-  //   setToken(token);
-  // }, []);
-
-  // const searchArtist = async (searchValue) => {
-  //   try {
-  //     const { data } = await axios.get("https://api.spotify.com/v1/search", {
-  //       headers: {
-  //         Authorization: "Bearer " + token,
-  //         "Content-Type": "application/json",
-  //       },
-  //       params: {
-  //         q: searchValue,
-  //         type: "artist",
-  //       },
-  //     });
-  //     setArtists(data.artists.items);
-  //   } catch (error) {
-  //     console.error("Error searching artist:", error.message);
-  //   }
-  // };
-
-  // const handleInputChange = (e) => {
-  //   const { value } = e.target;
-  //   setSearchKey(value);
-  //   if (value.trim() !== "") {
-  //     searchArtist(value);
-  //   } else {
-  //     setArtists([]);
-  //   }
-  // };
-
   const [token, setToken] = useState("");
   const [searchKey, setSearchKey] = useState("");
   const [artists, setArtists] = useState([]);
@@ -172,23 +121,6 @@ export default function Search({ navBackground }) {
           ))}
         </ArtistContainer>
       </div>
-
-      {/* <div>
-        <ArtistContainer>
-          {artists.map((artist) => (
-            <ArtistCard key={artist.id}>
-              {artist.images.length > 0 && (
-                <img
-                  src={artist.images[0].url}
-                  alt={artist.name}
-                  style={{ width: "auto", height: "250px" }}
-                />
-              )}
-              <p>{artist.name}</p>
-            </ArtistCard>
-          ))}
-        </ArtistContainer>
-      </div> */}
     </Container>
   );
 }
@@ -218,31 +150,6 @@ const Container = styled.div`
       width: 100%;
       &:focus {
         outline: none;
-      }
-    }
-  }
-  .avatar {
-    background-color: black;
-    padding: 0.3rem 0.4rem;
-    padding-right: 1rem;
-    border-radius: 2rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    a {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 0.5rem;
-      text-decoration: none;
-      color: white;
-      font-weight: bold;
-      svg {
-        font-size: 1.3rem;
-        background-color: #282828;
-        padding: 0.2rem;
-        border-radius: 1rem;
-        color: #c7c5c5;
       }
     }
   }
