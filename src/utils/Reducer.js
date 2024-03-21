@@ -3,11 +3,16 @@ import { reducerCases } from "./Constant";
 export const initialState = {
   token: null,
   userInfo: null,
+  userId: null,
   playlists: [],
   currentPlaying: null,
   playerState: false,
   selectedPlaylist: null,
-  selectedPlaylistId: "37i9dQZF1E37jO8SiMT0yN",
+  selectedPlaylistId: "",
+  tracks: [],
+  selectedTrack: null,
+  selectedTracktId: "",
+
 };
 
 const reducer = (state, action) => {
@@ -22,6 +27,11 @@ const reducer = (state, action) => {
         ...state,
         userInfo: action.userInfo,
       };
+      case reducerCases.SET_USER_ID:
+        return {
+          ...state,
+          userId: action.userId,
+        };
     case reducerCases.SET_PLAYLISTS:
       return {
         ...state,
@@ -37,6 +47,11 @@ const reducer = (state, action) => {
         ...state,
         playerState: action.playerState,
       };
+      case reducerCases.SET_TRACKS:
+        return {
+          ...state,
+          playlists: action.tracks,
+        };
     case reducerCases.SET_PLAYLIST:
       return {
         ...state,
@@ -47,6 +62,16 @@ const reducer = (state, action) => {
         ...state,
         selectedPlaylistId: action.selectedPlaylistId,
       };
+      case reducerCases.SET_PLAYLIST:
+        return {
+          ...state,
+          selectedPlaylist: action.selectedPlaylist,
+        };
+      case reducerCases.SET_TRACK_ID:
+        return {
+          ...state,
+          selectedPlaylistId: action.selectedPlaylistId,
+        };
     default:
       return state;
   }

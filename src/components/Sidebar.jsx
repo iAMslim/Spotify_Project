@@ -3,8 +3,9 @@ import styled from "styled-components";
 import { MdHomeFilled, MdSearch } from "react-icons/md";
 import { IoLibrary } from "react-icons/io5";
 import Playlists from "./Playlist";
+import { Link } from "react-router-dom";
 
-export default function Sidebar() {
+function Sidebar() {
   return (
     <Container>
       <div className="top__links">
@@ -16,16 +17,22 @@ export default function Sidebar() {
         </div>
         <ul>
           <li>
-            <MdHomeFilled />
-            <span>Home</span>
+          <Link to="/home">
+              <MdHomeFilled />
+              <span>Home</span>
+            </Link>
           </li>
           <li>
-            <MdSearch />
-            <span>Search</span>
+            <Link to="/search">
+              <MdSearch />
+              <span>Search</span>
+            </Link>
           </li>
           <li>
-            <IoLibrary />
-            <span>Your Library</span>
+            <Link to="/library">
+              <IoLibrary />
+              <span>Your Library</span>
+            </Link>
           </li>
         </ul>
       </div>
@@ -33,7 +40,6 @@ export default function Sidebar() {
     </Container>
   );
 }
-
 const Container = styled.div`
   background-color: black;
   color: #b3b3b3;
@@ -70,3 +76,5 @@ const Container = styled.div`
     }
   }
 `;
+
+export default Sidebar;

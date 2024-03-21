@@ -8,7 +8,7 @@ import { useStateProvider } from "../utils/StateProvider";
 import Body from "./Body";
 import { reducerCases } from "../utils/Constant";
 
-export default function Spotify() {
+function Spotify() {
   const [{ token }, dispatch] = useStateProvider();
   const [navBackground, setNavBackground] = useState(false);
   const [headerBackground, setHeaderBackground] = useState(false);
@@ -29,9 +29,11 @@ export default function Spotify() {
           "Content-Type": "application/json",
         },
       });
+      console.log("User Information:", data);
+
       const userInfo = {
         userId: data.id,
-        userUrl: data.external_urls.spotify,
+        userUrl: `/user/${data.id}`,
         name: data.display_name,
       };
       dispatch({ type: reducerCases.SET_USER, userInfo });
@@ -98,3 +100,6 @@ const Container = styled.div`
     }
   }
 `;
+
+export default Spotify;
+

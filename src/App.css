@@ -122,3 +122,12 @@ img {
   align-items: center;
   text-align: center;
 }
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Ensure the container takes at least the viewport height */
+}
+
+.content {
+  flex-grow: 1; /* Main content area grows to occupy remaining space */
+}

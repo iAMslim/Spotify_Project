@@ -137,10 +137,6 @@ function Home() {
     window.location.href = `/playlist/playlists/${playlistId}`;
   };
 
-  const authenticateWithSpotify = () => {
-    window.location.href = `${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`;
-  };
-
   const logout = () => {
     window.localStorage.removeItem("token");
     window.location.reload();
