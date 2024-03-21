@@ -1,8 +1,5 @@
 import axios from "axios";
-<<<<<<<< HEAD:src/components/Player/Volume.jsx
-========
 import { FaVolumeUp } from "react-icons/fa";
->>>>>>>> main:src/components/musicPlayer/Volume.jsx
 import styled from "styled-components";
 import { useStateProvider } from "../../utils/StateProvider";
 

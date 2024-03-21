@@ -29,6 +29,7 @@ export default function Sidebar() {
             <span>Your Library</span>
           </li>
         </ul>
+        <Playlists />
       </div>
     </Container>
   );

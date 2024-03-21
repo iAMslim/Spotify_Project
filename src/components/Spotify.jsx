@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import Sidebar from "./Sidebar";
 import styled from "styled-components";
-import Footer from "./Player/Footer";
 import Navbar from "./NavBar";
+import Footer from "./MusicPlayer/Footer";
 import axios from "axios";
 import { useStateProvider } from "../utils/StateProvider";
 import Body from "./Body";
@@ -85,8 +85,8 @@ const Container = styled.div`
     background: linear-gradient(transparent, rgba(0, 0, 0, 1));
     background-color: rgb(192, 31, 31);
     .body {
-      background: linear-gradient(transparent, rgba(0, 0, 0, 1));
-      background-color: rgb(32, 87, 100);
+      // background: linear-gradient(transparent, rgba(0, 0, 0, 1));
+      // background-color: rgb(32, 87, 100);
       // border: 2px red solid;
       border-radius: 0.5rem;
       margin: 1rem;

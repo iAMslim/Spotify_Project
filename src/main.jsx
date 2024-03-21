@@ -4,8 +4,9 @@ import App from "./App.jsx";
 import "./index.css";
 import { BrowserRouter } from "react-router-dom";
 import { StateProvider } from "./utils/StateProvider.jsx";
-import reducer, { initialState } from "./utils/Reducer";
 import { Routes, Route } from "react-router-dom";
+
+import reducer, { initialState } from "./utils/Reducer";
 import Home from "./components/Home.jsx";
 import Login from "./components/Login.jsx";
 import Search from "./components/Search.jsx";
