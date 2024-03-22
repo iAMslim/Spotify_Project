@@ -6,7 +6,7 @@ import Footer from "../MusicPlayer/Footer";
 import axios from "axios";
 import { useStateProvider } from "../../utils/StateProvider";
 import { reducerCases } from "../../utils/Constant";
-import Body from "./Body";
+import HomeBody from "./HomeBody";
 
 export default function Home() {
   const [{ token }, dispatch] = useStateProvider();
@@ -33,6 +33,7 @@ export default function Home() {
         userId: data.id,
         userUrl: data.external_urls.spotify,
         name: data.display_name,
+        image: data.images,
       };
       dispatch({ type: reducerCases.SET_USER, userInfo });
     };
@@ -60,7 +61,7 @@ export default function Home() {
         <div className="body" ref={bodyRef} onScroll={bodyScrolled}>
           <Navbar navBackground={navBackground} />
           <div className="body__contents">
-            <Body headerBackground={headerBackground} />
+            <HomeBody headerBackground={headerBackground} />
           </div>
         </div>
       </div>
@@ -82,27 +83,25 @@ const Container = styled.div`
     grid-template-columns: 15vw 85vw;
     height: 100%;
     width: 100%;
-    background: linear-gradient(transparent, rgba(0, 0, 0, 1));
-    background-color: rgb(192, 31, 31);
+    background-color: black;
     .body {
-      // background: linear-gradient(transparent, rgba(0, 0, 0, 1));
-      // background-color: rgb(32, 87, 100);
-      // border: 2px red solid;
-      border-radius: 0.5rem;
-      margin: 1rem;
+      background: linear-gradient(transparent, rgba(0, 0, 0, 1));
+      background-color: rgb(192, 31, 31);
+      border-radius: 0.75rem;
+      margin-top: 1rem;
       height: 100%;
-      // width: 100%;
+      width: 99%;
       overflow: auto;
       &::-webkit-scrollbar {
-        width: 0.7rem;
-        max-height: 2rem;
+        width: 1rem;
+        max-height: 1rem;
+        background-color: #181818;
+        border-radius: 0 0.75rem;
         &-thumb {
           background-color: rgba(255, 255, 255, 0.6);
+          border-radius: 0.75rem;
         }
       }
     }
   }
-  // .spotify__footer {
-  //  height: 4rem;
-  // }
 `;

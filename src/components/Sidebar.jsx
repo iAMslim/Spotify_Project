@@ -4,11 +4,12 @@ import { IoLibrary } from "react-icons/io5";
 import Playlists from "./Playlist";
 import { useNavigate } from "react-router-dom";
 import { RiVipCrownFill } from "react-icons/ri";
+
 export default function Sidebar() {
   const navigate = useNavigate();
   return (
     <Container>
-      <div className="top__links">
+      <div className="side-links">
         <div className="logo">
           <img
             src="https://scontent.fsac1-2.fna.fbcdn.net/v/t1.15752-9/430423565_429507032784266_7625177144558019082_n.png?_nc_cat=103&ccb=1-7&_nc_sid=5f2048&_nc_ohc=WGG6ryWaRwMAX-EYfqN&_nc_ht=scontent.fsac1-2.fna&oh=03_AdTrnIfKpKpF_DpMAQn1MS5jxFqPEQfoO2uiUTiVKVssaw&oe=6621D16D"
@@ -16,25 +17,31 @@ export default function Sidebar() {
             onClick={() => navigate("/")}
           />
         </div>
-        <ul>
-          <li onClick={() => navigate("/")}>
-            <MdHomeFilled />
-            <span>Home</span>
-          </li>
-          <li onClick={() => navigate("/search")}>
-            <MdSearch />
-            <span>Search</span>
-          </li>
-          <li onClick={() => navigate("/featured")}>
-            <RiVipCrownFill />
-            <span>Featured</span>
-          </li>
-          <li onClick={() => navigate("/library")}>
-            <IoLibrary />
-            <span>Your Library</span>
-          </li>
-        </ul>
-        <Playlists />
+        <div className="link-card">
+          <ul>
+            <li onClick={() => navigate("/")}>
+              <MdHomeFilled />
+              <span>Home</span>
+            </li>
+            <li onClick={() => navigate("/search")}>
+              <MdSearch />
+              <span>Search</span>
+            </li>
+            <li onClick={() => navigate("/featured")}>
+              <RiVipCrownFill />
+              <span>Featured</span>
+            </li>
+          </ul>
+        </div>
+        <div className="link-card">
+          <ul>
+            <li onClick={() => navigate("/library")}>
+              <IoLibrary />
+              <span>Your Library</span>
+            </li>
+          </ul>
+          <Playlists />
+        </div>
       </div>
     </Container>
   );
@@ -47,22 +54,25 @@ const Container = styled.div`
   flex-direction: column;
   height: 100%;
   width: 100%;
-  .top__links {
+  .side-links {
     display: flex;
     flex-direction: column;
     .logo {
-      cursor: pointer;
       text-align: center;
       margin: 1rem 0;
+      &:hover {
+        cursor: pointer;
+      }
       img {
         max-inline-size: 80%;
         block-size: auto;
       }
     }
-    .card {
+    .link-card {
       background-color: #181818;
       border-radius: 0.5rem;
-      padding: 1rem 0.5rem;
+      margin: 0.5rem;
+      padding: 1rem;
     }
     ul {
       list-style-type: none;
@@ -77,6 +87,9 @@ const Container = styled.div`
         transition: 0.3s ease-in-out;
         &:hover {
           color: gray;
+        }
+        svg {
+          font-size: 21px;
         }
       }
     }

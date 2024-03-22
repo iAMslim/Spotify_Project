@@ -128,9 +128,9 @@ export default function FeaturedBody() {
 const AlbumCard = styled.div`
   border: 1px solid transparent; /* Initial transparent border */
   border-radius: 15px;
-  padding: 10px;
+  padding: 5px;
   margin: 10px;
-  min-width: 250px;
+  max-width: 150px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Box shadow for floating effect */
   transition: all 0.3s ease; /* Transition effect for smooth animation */
   background-color: #000000;
@@ -138,13 +138,12 @@ const AlbumCard = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  color: bisque;
+  color: #f8f47e;
 
   &:hover {
-    // border-color: #fb0101; /* Border color on hover */
+    border-color: #fb0101; /* Border color on hover */
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Box shadow on hover */
     background-color: #202020; /* Background color on hover */
-    cursor: pointer;
   }
 `;
 
@@ -157,9 +156,9 @@ const AlbumImage = styled.img`
 const PlaylistCard = styled.div`
   border: 1px solid transparent; /* Initial transparent border */
   border-radius: 15px;
-  padding: 10px;
+  padding: 5px;
   margin: 10px;
-  min-width: 250px;
+  max-width: 150px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Box shadow for floating effect */
   transition: all 0.3s ease; /* Transition effect for smooth animation */
   background-color: #000000;
@@ -167,18 +166,17 @@ const PlaylistCard = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  color: bisque;
+  color: #f8f47e;
 
   &:hover {
-    // border-color: #fcf8f8; /* Border color on hover */
+    border-color: #fcf8f8; /* Border color on hover */
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Box shadow on hover */
     background-color: #202020; /* Background color on hover */
-    cursor: pointer;
   }
 `;
 
 const PlaylistImage = styled.img`
   width: 100%; /* Set image width to cover the entire card */
   height: auto; /* Set image height to auto to maintain aspect ratio */
-  border-radius: 10px; /* Ensure border radius is applied to the image */
+  border-radius: 15px; /* Ensure border radius is applied to the image */
 `;
