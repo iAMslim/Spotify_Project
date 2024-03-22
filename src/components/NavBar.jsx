@@ -3,8 +3,15 @@ import styled from "styled-components";
 import { useStateProvider } from "../utils/StateProvider";
 import { FaSearch } from "react-icons/fa";
 import { CgProfile } from "react-icons/cg";
-export default function Navbar({ navBackground }) {
+
+function Navbar({ navBackground }) {
+
   const [{ userInfo }] = useStateProvider();
+  const hash = window.location.hash;
+  const token = hash ? hash.substring(1).split("&")[0].split("=")[1] : null;
+  const userId = userInfo?.userId;
+  const userProfileUrl = `/user/${userId}?token=${token}`;
+
   return (
     <Container navBackground={navBackground}>
       <div className="search__bar">
@@ -12,7 +19,7 @@ export default function Navbar({ navBackground }) {
         <input type="text" placeholder="Artists, songs, or podcasts" />
       </div>
       <div className="avatar">
-        <a href={userInfo?.userUrl}>
+        <a href={userProfileUrl}>
           <CgProfile />
           <span>{userInfo?.name}</span>
         </a>
@@ -75,3 +82,4 @@ const Container = styled.div`
     }
   }
 `;
+export default Navbar;

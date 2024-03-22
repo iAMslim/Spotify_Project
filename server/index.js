@@ -31,7 +31,7 @@ const generateRandomString = (length) => {
 };
 
 app.get("/auth/login", (req, res) => {
-  const scope = ["streaming", "user-read-email", "user-read-private"];
+  const scope = ["streaming", "user-read-email", "user-read-private", "user-library-read"];
   const state = generateRandomString(16);
 
   const authQueryParameters = new URLSearchParams({

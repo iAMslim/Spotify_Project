@@ -11,7 +11,7 @@ export const initialState = {
   selectedPlaylistId: "",
   tracks: [],
   selectedTrack: null,
-  selectedTracktId: "",
+  selectedTrackId: "",
 
 };
 

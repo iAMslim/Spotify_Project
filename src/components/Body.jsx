@@ -6,42 +6,82 @@ import { AiFillClockCircle } from "react-icons/ai";
 import { reducerCases } from "../utils/Constant";
 
 function Body({ headerBackground }) {
-  const [{ token, selectedPlaylist, selectedPlaylistId }, dispatch] =
+  const [{ token, selectedPlaylistId, selectedTrackId, selectedPlaylist, selectedTrack }, dispatch] =
     useStateProvider();
 
   useEffect(() => {
-    const getInitialPlaylist = async () => {
-      const response = await axios.get(
-        `https://api.spotify.com/v1/playlists/${selectedPlaylistId}`,
-        {
-          headers: {
-            Authorization: "Bearer " + token,
-            "Content-Type": "application/json",
-          },
+    const fetchData = async () => {
+      if (selectedPlaylistId) {
+        try {
+          const playlistResponse = await axios.get(
+            `https://api.spotify.com/v1/playlists/${selectedPlaylistId}`,
+            {
+              headers: {
+                Authorization: "Bearer " + token,
+                "Content-Type": "application/json",
+              },
+            }
+          );
+          const playlistTracks = playlistResponse.data.tracks.items.map(
+            ({ track }) => ({
+              id: track.id,
+              name: track.name,
+              artists: track.artists.map((artist) => artist.name),
+              image: track.album.images[2].url,
+              duration: track.duration_ms,
+              album: track.album.name,
+              context_uri: track.album.uri,
+              track_number: track.track_number,
+            })
+          );
+          dispatch({
+            type: reducerCases.SET_PLAYLIST,
+            selectedPlaylist: {
+              id: playlistResponse.data.id,
+              name: playlistResponse.data.name,
+              description: playlistResponse.data.description.startsWith("<a")
+                ? ""
+                : playlistResponse.data.description,
+              image: playlistResponse.data.images[0].url,
+              tracks: playlistTracks,
+            },
+          });
+        } catch (error) {
+          console.error("Error fetching playlist:", error);
         }
-      );
-      const selectedPlaylist = {
-        id: response.data.id,
-        name: response.data.name,
-        description: response.data.description.startsWith("<a")
-          ? ""
-          : response.data.description,
-        image: response.data.images[0].url,
-        tracks: response.data.tracks.items.map(({ track }) => ({
-          id: track.id,
-          name: track.name,
-          artists: track.artists.map((artist) => artist.name),
-          image: track.album.images[2].url,
-          duration: track.duration_ms,
-          album: track.album.name,
-          context_uri: track.album.uri,
-          track_number: track.track_number,
-        })),
-      };
-      dispatch({ type: reducerCases.SET_PLAYLIST, selectedPlaylist });
+      }
+      
+      if (selectedTrackId) {
+        try {
+          const trackResponse = await axios.get(
+            `https://api.spotify.com/v1/me/tracks/${selectedTrackId}`,
+            {
+              headers: {
+                Authorization: "Bearer " + token,
+                "Content-Type": "application/json",
+              },
+            }
+          );
+          const selectedTrack = {
+            id: trackResponse.data.id,
+            name: trackResponse.data.name,
+            artists: trackResponse.data.artists.map((artist) => artist.name),
+            image: trackResponse.data.album.images[0].url,
+            duration: trackResponse.data.duration_ms,
+            album: trackResponse.data.album.name,
+            context_uri: trackResponse.data.album.uri,
+            track_number: trackResponse.data.track_number,
+          };
+          dispatch({ type: reducerCases.SET_TRACK, selectedTrack });
+        } catch (error) {
+          console.error("Error fetching track:", error);
+        }
+      }
     };
-    getInitialPlaylist();
-  }, [token, dispatch, selectedPlaylistId]);
+
+    fetchData();
+  }, [token, selectedPlaylistId, selectedTrackId, dispatch]);
+
   const playTrack = async (
     id,
     name,
@@ -79,11 +119,13 @@ function Body({ headerBackground }) {
       dispatch({ type: reducerCases.SET_PLAYER_STATE, playerState: true });
     }
   };
+
   const msToMinutesAndSeconds = (ms) => {
     var minutes = Math.floor(ms / 60000);
     var seconds = ((ms % 60000) / 1000).toFixed(0);
     return minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
   };
+
   return (
     <Container headerBackground={headerBackground}>
       {selectedPlaylist && (
@@ -174,7 +216,6 @@ function Body({ headerBackground }) {
     </Container>
   );
 }
-
 const Container = styled.div`
   .playlist {
     margin: 0 2rem;

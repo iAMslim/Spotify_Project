@@ -17,6 +17,7 @@ function App() {
       const token = hash.substring(1).split("&")[0].split("=")[1];
       if (token) {
         dispatch({ type: reducerCases.SET_TOKEN, token });
+        localStorage.setItem('spotifyToken', token);
       }
     }
     document.title = "Spotify";
@@ -28,6 +29,7 @@ function App() {
         {token ? <Spotify /> : <Login />}
         <div>
           <Routes>
+          <Route path="/" element={<Tracks />} />
           <Route path="/home" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/user/:userid" element={<User />} />

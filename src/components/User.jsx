@@ -12,7 +12,7 @@ function User() {
   useEffect(() => {
     const getUserInfo = async () => {
       try {
-        const { data } = await axios.get(`https://api.spotify.com/v1/users/{user_id}`, {
+        const { data } = await axios.get(`https://api.spotify.com/v1/me`, {
           headers: {
             Authorization: "Bearer " + token,
             "Content-Type": "application/json",

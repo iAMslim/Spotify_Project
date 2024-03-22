@@ -1,54 +1,43 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { reducerCases } from "../utils/Constant";
+import { useStateProvider } from "../utils/StateProvider";
 
 function Tracks() {
-  const [token, setToken] = useState("");
-  const [tracks, setTracks] = useState([]);
+  const [{ token, tracks }, dispatch] = useStateProvider();
 
   useEffect(() => {
-    const hash = window.location.hash;
-    let accessToken = window.localStorage.getItem("token");
-    if (!accessToken && hash) {
-      accessToken = hash
-        .substring(1)
-        .split("&")
-        .find((elem) => elem.startsWith("access_token"))
-        .split("=")[1];
-      window.location.hash = "";
-      window.localStorage.setItem("token", accessToken);
-    }
-    setToken(accessToken);
-  }, []);
+    const fetchUserTracks = async () => {
+      try {
+        const response = await axios.get(
+          "https://api.spotify.com/v1/me/tracks",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        const { items } = response.data;
+        const parsedTracks = items.map(({ track }) => ({
+          name: track.name,
+          id: track.id,
+        }));
+        dispatch({ type: reducerCases.SET_TRACKS, tracks: parsedTracks });
+      } catch (error) {
+        console.error("Error fetching tracks:", error);
+      }
+    };
 
-  useEffect(() => {
     if (token) {
       console.log("Fetching user's saved tracks...");
-      axios
-        .get("https://api.spotify.com/v1/me/tracks", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        })
-        .then((response) => {
-          console.log("Tracks fetched:", response.data);
-          const { items } = response.data;
-          const parsedTracks = items.map(({ track }) => ({
-            name: track.name,
-            id: track.id,
-          }));
-          console.log("Parsed tracks:", parsedTracks);
-          setTracks(parsedTracks);
-        })
-        .catch((error) => {
-          console.error("Error fetching tracks:", error);
-        });
+      fetchUserTracks();
     }
-  }, [token]);
+  }, [token, dispatch]);
 
   const changeCurrentTrack = (selectedTrackId) => {
-    dispatch({ type: reducerCases.SET_TRACK_ID, selectedTrackId });
+    console.log("Selected track ID:", selectedTrackId);
   };
 
   return (

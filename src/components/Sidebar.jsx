@@ -4,6 +4,7 @@ import { MdHomeFilled, MdSearch } from "react-icons/md";
 import { IoLibrary } from "react-icons/io5";
 import Playlists from "./Playlist";
 import { Link } from "react-router-dom";
+import Tracks from "./Tracks";
 
 function Sidebar() {
   return (
@@ -17,7 +18,7 @@ function Sidebar() {
         </div>
         <ul>
           <li>
-          <Link to="/home">
+            <Link to="/home">
               <MdHomeFilled />
               <span>Home</span>
             </Link>
@@ -37,6 +38,7 @@ function Sidebar() {
         </ul>
       </div>
       <Playlists />
+      {/* <Tracks /> */}
     </Container>
   );
 }
