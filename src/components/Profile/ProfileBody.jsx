@@ -33,13 +33,15 @@ export default function ProfileBody() {
       {userInfo && (
         <>
           <div className="profile-main">
-            <h1>Profile</h1>
             <div className="profile-wrapper">
+              <h1>Profile</h1>
+              <br />
               <div className="profile-image-container">
                 {userInfo.image && userInfo.image.length >= 1 && (
                   <img src={userInfo.image[1].url} alt="Profile" />
                 )}
               </div>
+              <br />
               <h2>{userInfo.displayName}</h2>
               <h4>{userInfo.followers} Followers</h4>
               <a href={userInfo.externalUrl}>{userInfo.externalUrl}</a>
@@ -59,6 +61,9 @@ const Container = styled.div`
     justify-content: center;
     align-items: center;
     .profile-wrapper {
+      background-color: #181818;
+      border-radius: 2rem;
+      padding: 1rem;
       display: flex;
       flex-direction: column;
       justify-content: center;
