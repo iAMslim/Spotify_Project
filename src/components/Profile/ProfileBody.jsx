@@ -1,101 +1,87 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import axios from "axios";
+import { useStateProvider } from "../../utils/StateProvider";
+import { reducerCases } from "../../utils/Constant";
+import styled from "styled-components";
 
 export default function ProfileBody() {
-  const [userData, setUserData] = useState(null);
-  const [topData, setTopData] = useState(null);
-  const [token, setToken] = useState("");
+  const [{ token, userInfo }, dispatch] = useStateProvider();
 
   useEffect(() => {
-    const hash = window.location.hash;
-    let token = window.localStorage.getItem("token");
-    if (!token && hash) {
-      token = hash
-        .substring(1)
-        .split("&")
-        .find((elem) => elem.startsWith("access_token"))
-        .split("=")[1];
-      window.location.hash = "";
-      window.localStorage.setItem("token", token);
-    }
-    setToken(token);
-    if (token) {
-      axios
-        .get("https://api.spotify.com/v1/me", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        })
-        .then((response) => {
-          setUserData(response.data);
-          console.log(response.data);
-        })
-        .catch((error) => {
-          console.error("Error fetching user data:", error.message);
-        });
-    }
-  }, [token]);
-
-  const handleLogout = () => {
-    window.localStorage.removeItem("token");
-    setToken("");
-  };
-
-  const fetchTopData = (type) => {
-    axios
-      .get(`https://api.spotify.com/v1/me/top/${type}`, {
+    const getUserInfo = async () => {
+      const { data } = await axios.get("https://api.spotify.com/v1/me", {
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: "Bearer " + token,
+          "Content-Type": "application/json",
         },
-      })
-      .then((response) => {
-        setTopData(response.data);
-      })
-      .catch((error) => {
-        console.error(`Error fetching top ${type}:`, error.message);
       });
-  };
+      const userInfo = {
+        id: data.id,
+        image: data.images,
+        externalUrl: data.external_urls.spotify,
+        displayName: data.display_name,
+        followers: data.followers.total,
+      };
+      console.log(data);
+      dispatch({ type: reducerCases.SET_USER, userInfo });
+    };
+    getUserInfo();
+  }, [dispatch, token]);
 
   return (
-    <>
-      <div>
-        {userData && (
+    <Container>
+      {userInfo && (
+        <>
           <div className="profile-main">
             <h1>Profile</h1>
             <div className="profile-wrapper">
-              {userData.images && userData.images.length > 1 && (
-                <img src={userData.images[1].url} alt="Profile" />
-              )}
-              <p>Type: {userData.type}</p>
-              <p>Display Name: {userData.display_name}</p>
-              <p>Followers: {userData.followers.total}</p>
+              <div className="profile-image-container">
+                {userInfo.image && userInfo.image.length >= 1 && (
+                  <img src={userInfo.image[1].url} alt="Profile" />
+                )}
+              </div>
+              <h2>{userInfo.displayName}</h2>
+              <h4>{userInfo.followers} Followers</h4>
+              <a href={userInfo.externalUrl}>{userInfo.externalUrl}</a>
             </div>
           </div>
-        )}
-        <br />
-        <br />
-        <div className="profile-info-wrap">
-          <button onClick={() => fetchTopData("tracks")}>
-            Fetch Top Tracks
-          </button>
-          <br />
-          <button onClick={() => fetchTopData("artists")}>
-            Fetch Top Artists
-          </button>
-          <br />
-          <button onClick={handleLogout}>Logout</button>
-          {topData && (
-            <div>
-              <h2>Top {topData.type === "tracks" ? "Tracks" : "Artists"}</h2>
-              <ul>
-                {topData.items.map((item) => (
-                  <li key={item.id}>{item.name}</li>
-                ))}
-              </ul>
-            </div>
-          )}
-        </div>
-      </div>
-    </>
+        </>
+      )}
+    </Container>
   );
 }
+
+const Container = styled.div`
+  .profile-main {
+    color: #dddcdc;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    .profile-wrapper {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      margin: 1rem 0;
+      a {
+        color: #dddcdc;
+        text-decoration: none;
+        &:hover {
+          color: blue;
+          text-decoration: underline;
+        }
+      }
+      .profile-image-container {
+        height: 300px;
+        width: 300px;
+        img {
+          height: 300px;
+          width: 300px;
+          object-fit: cover;
+          border-radius: 50%;
+        }
+      }
+    }
+  }
+`;

@@ -4,7 +4,7 @@ import { CgProfile } from "react-icons/cg";
 import { useNavigate } from "react-router-dom";
 
 export default function Navbar({ navBackground }) {
-  const [{ userInfo }, { token }, dispatch] = useStateProvider();
+  const [{ userInfo }] = useStateProvider();
   const navigate = useNavigate();
 
   return (
@@ -22,7 +22,8 @@ const Container = styled.div`
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  padding: 1rem 2rem 1rem 1rem;
+  margin-top: 5px;
+  padding: 1rem 1rem 1rem 1rem;
   height: 5vh;
   position: sticky;
   top: 0;
@@ -33,10 +34,13 @@ const Container = styled.div`
     background-color: #181818;
     padding: 0.3rem 0.4rem;
     padding-right: 1rem;
-    border-radius: 2rem;
+    border-radius: 1rem;
     display: flex;
-    justify-content: ;
+    justify-content: center;
     align-items: center;
+    &:hover {
+      background-color: #b3b3b3;
+    }
     .avatar-link {
       display: flex;
       justify-content: center;
@@ -46,11 +50,14 @@ const Container = styled.div`
       color: white;
       font-weight: bold;
       svg {
-        font-size: 1.3rem;
+        font-size: 2rem;
         background-color: #282828;
         padding: 0.2rem;
         border-radius: 1rem;
-        color: #c7c5c5;
+        color: white;
+      }
+      &:hover {
+        cursor: pointer;
       }
     }
   }

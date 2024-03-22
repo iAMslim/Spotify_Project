@@ -68,11 +68,9 @@ export default function PlayerControls() {
       <div className="shuffle">
         <BsShuffle />
       </div>
-
       <div className="previous">
         <CgPlayTrackPrev onClick={() => changeTrack("previous")} />
       </div>
-
       <div className="state">
         {playerState ? (
           <BsFillPauseCircleFill onClick={changeState} />
@@ -80,11 +78,9 @@ export default function PlayerControls() {
           <BsFillPlayCircleFill onClick={changeState} />
         )}
       </div>
-
       <div className="next">
         <CgPlayTrackNext onClick={() => changeTrack("next")} />
       </div>
-
       <div className="repeat">
         <FiRepeat />
       </div>
@@ -94,8 +90,8 @@ export default function PlayerControls() {
 
 const Container = styled.div`
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
   gap: 2rem;
   svg {
     color: #b3b3b3;
@@ -107,11 +103,20 @@ const Container = styled.div`
   .state {
     svg {
       color: white;
+      cursor: pointer;
     }
   }
   .previous,
   .next,
   .state {
     font-size: 2rem;
+    cursor: pointer;
+  }
+  .shuffle,
+  .repeat {
+    svg {
+      font-size: 1rem;
+      cursor: pointer;
+    }
   }
 `;

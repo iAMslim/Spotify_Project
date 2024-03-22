@@ -22,9 +22,7 @@ export default function Volume() {
   };
   return (
     <Container>
-      <div>
-        <FaVolumeUp style={{ fontSize: "1.5rem", color: "white" }} />
-      </div>
+      <FaVolumeUp />
       <input type="range" onMouseUp={(e) => setVolume(e)} min={0} max={100} />
     </Container>
   );
@@ -32,12 +30,15 @@ export default function Volume() {
 
 const Container = styled.div`
   display: flex;
-  justify-content: flex-end;
-  align-content: center;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  svg {
+    font-size: 1rem;
+    color: #b3b3b3;
+  }
   input {
-    padding: 2px;
-    width: 15rem;
-    border-radius: 2rem;
-    height: 0.5rem;
+    width: 10rem;
+    cursor: pointer;
   }
 `;

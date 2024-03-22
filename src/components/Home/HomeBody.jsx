@@ -5,7 +5,7 @@ import { useStateProvider } from "../../utils/StateProvider";
 import { AiFillClockCircle } from "react-icons/ai";
 import { reducerCases } from "../../utils/Constant";
 
-export default function SelectedPlaylist({ headerBackground }) {
+export default function HomeBody({ headerBackground }) {
   const [{ token, selectedPlaylist, selectedPlaylistId }, dispatch] =
     useStateProvider();
 
@@ -185,6 +185,7 @@ const Container = styled.div`
       img {
         height: 15rem;
         box-shadow: rgba(0, 0, 0, 0.25) 0px 25px 50px -12px;
+        border-radius: 1rem;
       }
     }
     .details {
@@ -201,15 +202,19 @@ const Container = styled.div`
   .list {
     .header-row {
       display: grid;
-      grid-template-columns: 0.3fr 3fr 2fr 0.1fr;
+      grid-template-columns: 0.5fr 3fr 2.5fr 0.1fr;
       margin: 1rem 0 0 0;
       color: #dddcdc;
       position: sticky;
-      top: 15vh;
+      top: 5vh;
       padding: 1rem 3rem;
       transition: 0.3s ease-in-out;
       background-color: ${({ headerBackground }) =>
-        headerBackground ? "#000000dc" : "none"};
+        headerBackground ? "#181818" : "none"};
+      .col {
+        display: flex;
+        justify-content: flex-start;
+      }
     }
     .tracks {
       margin: 0 2rem;
@@ -219,17 +224,20 @@ const Container = styled.div`
       .row {
         padding: 0.5rem 1rem;
         display: grid;
-        grid-template-columns: 0.3fr 3.1fr 2fr 0.1fr;
+        grid-template-columns: 0.5fr 3fr 2.5fr 0.1fr;
         &:hover {
           background-color: rgba(0, 0, 0, 0.7);
+          cursor: pointer;
         }
         .col {
           display: flex;
+          justify-content: flex-start;
           align-items: center;
           color: #dddcdc;
           img {
             height: 40px;
             width: 40px;
+            border-radius: 0.3rem;
           }
         }
         .detail {

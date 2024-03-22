@@ -60,6 +60,10 @@ const Container = styled.div`
       width: 0.7rem;
       &-thumb {
         background-color: rgba(255, 255, 255, 0.6);
+        border-radius: 0.75rem;
+        &:hover {
+          cursor: pointer;
+        }
       }
     }
     li {
