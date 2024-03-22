@@ -33,6 +33,7 @@ export default function Library() {
         userId: data.id,
         userUrl: data.external_urls.spotify,
         name: data.display_name,
+        image: data.images,
       };
       dispatch({ type: reducerCases.SET_USER, userInfo });
     };
