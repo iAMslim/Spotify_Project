@@ -4,7 +4,7 @@ export default function Login() {
   const handleClick = async () => {
     // const client_id = import.meta.env.VITE_APP_SPOTIFY_CLIENT_ID;
     const client_id = "3419d36f85604b6fb16bc730622cd529";
-    const redirect_uri = "http://localhost:5173";
+    const redirect_uri = "https://fsabeatbox.netlify.app";
     const api_uri = "https://accounts.spotify.com/authorize";
     const scope = [
       "ugc-image-upload",
