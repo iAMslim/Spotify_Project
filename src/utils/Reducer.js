@@ -8,6 +8,8 @@ export const initialState = {
   playerState: false,
   selectedPlaylist: null,
   selectedPlaylistId: "37i9dQZF1E37jO8SiMT0yN",
+  newReleases: [],
+  featuredPlaylists: [],
 };
 
 const reducer = (state, action) => {
@@ -46,6 +48,11 @@ const reducer = (state, action) => {
       return {
         ...state,
         selectedPlaylistId: action.selectedPlaylistId,
+      };
+    case reducerCases.SET_NEW_RELEASES:
+      return {
+        ...state,
+        newReleases: action.newReleases,
       };
     default:
       return state;
