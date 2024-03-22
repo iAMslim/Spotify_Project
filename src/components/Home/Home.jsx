@@ -98,8 +98,11 @@ const Container = styled.div`
         background-color: #181818;
         border-radius: 0 0.75rem;
         &-thumb {
-          background-color: rgba(255, 255, 255, 0.6);
+          background-color: #b3b3b3;
           border-radius: 0.75rem;
+          &:hover {
+            cursor: pointer;
+          }
         }
       }
     }

@@ -22,7 +22,6 @@ export default function ProfileBody() {
         displayName: data.display_name,
         followers: data.followers.total,
       };
-      console.log(data);
       dispatch({ type: reducerCases.SET_USER, userInfo });
     };
     getUserInfo();
