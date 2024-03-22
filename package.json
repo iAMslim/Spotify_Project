@@ -8,6 +8,7 @@
     "start": "node server/index.js",
     "src": "cd src/ && npm run dev",
     "test": "jest",
+    "build": "vite build",
     "server": "node server/index.js"
   },
   "dependencies": {
