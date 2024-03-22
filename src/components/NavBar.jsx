@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom";
 export default function Navbar({ navBackground }) {
   const [{ userInfo }] = useStateProvider();
   const navigate = useNavigate();
-  console.log(userInfo);
   return (
     <Container navBackground={navBackground}>
       <div className="avatar">

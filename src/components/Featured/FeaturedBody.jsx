@@ -1,83 +1,93 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import axios from "axios";
 import styled from "styled-components";
+import { useStateProvider } from "../../utils/StateProvider";
+import { reducerCases } from "../../utils/Constant";
 
 export default function FeaturedBody() {
-  const [token, setToken] = useState("");
-  const [albums, setAlbums] = useState([]);
-  const [playlists, setPlaylists] = useState([]);
+  const [{ token, newReleases, featuredPlaylists }, dispatch] =
+    useStateProvider();
 
   useEffect(() => {
-    const hash = window.location.hash;
-    let token = window.localStorage.getItem("token");
-    if (!token && hash) {
-      token = hash
-        .substring(1)
-        .split("&")
-        .find((elem) => elem.startsWith("access_token"))
-        .split("=")[1];
-      window.location.hash = "";
-      window.localStorage.setItem("token", token);
-    }
-    setToken(token);
-  }, []);
-
-  useEffect(() => {
-    if (token) {
-      fetchTopAlbums();
-      fetchFeaturedPlaylists();
-    }
-  }, [token]);
-
-  const fetchTopAlbums = async () => {
-    try {
+    const fetchTopAlbums = async () => {
       const response = await axios.get(
         "https://api.spotify.com/v1/browse/new-releases",
         {
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: "Bearer " + token,
+            "Content-Type": "application/json",
           },
           params: {
-            limit: 30, // Adjust as needed
+            limit: 30,
           },
         }
       );
-      setAlbums(response.data.albums.items);
-    } catch (error) {
-      console.error("Error fetching top albums:", error.message);
-    }
-  };
+      console.log(response);
+      const itms = response.data.albums.items;
+      const newReleases = itms.map(({ id, name }) => {
+        return { id, name };
+      });
+      dispatch({ type: reducerCases.SET_NEW_RELEASES, newReleases });
+    };
+    fetchTopAlbums();
+  }, [token, dispatch]);
 
-  const fetchFeaturedPlaylists = async () => {
-    try {
+  useEffect(() => {
+    const fetchFeaturedPlaylists = async () => {
       const response = await axios.get(
         "https://api.spotify.com/v1/browse/featured-playlists",
         {
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: "Bearer " + token,
+            "Content-Type": "application/json",
           },
           params: {
-            limit: 30, // Adjust as needed
+            limit: 30,
           },
         }
       );
-      setPlaylists(response.data.playlists.items);
-    } catch (error) {
-      console.error("Error fetching featured playlists:", error.message);
-    }
-  };
+      console.log(response);
+      const itms = response.data.playlists.items;
+      const featuredPlaylists = itms.map(({ id, name }) => {
+        return { id, name };
+      });
+      dispatch({
+        type: reducerCases.SET_FEATURED_PLAYLISTS,
+        featuredPlaylists,
+      });
+    };
+    fetchFeaturedPlaylists();
+  }, [token, dispatch]);
 
-  const handleAlbumClick = (albumId) => {
-    window.location.href = `/music/albums/${albumId}`;
-  };
+  // const handleAlbumClick = (albumId) => {
+  //   window.location.href = `/music/albums/${albumId}`;
+  // };
 
-  const handlePlaylistClick = (playlistId) => {
-    window.location.href = `/playlist/playlists/${playlistId}`;
-  };
+  // const handlePlaylistClick = (playlistId) => {
+  //   window.location.href = `/playlist/playlists/${playlistId}`;
+  // };
 
   return (
     <div className="container">
-      <div className="scrollable-row">
+      <div>
+        {newReleases.map(({ id, name }) => {
+          return (
+            <div key={id}>
+              <p>{name}</p>
+            </div>
+          );
+        })}
+      </div>
+      <div>
+        {featuredPlaylists.map(({ id, name }) => {
+          return (
+            <div key={id}>
+              <p>{name}</p>
+            </div>
+          );
+        })}
+      </div>
+      {/* <div className="scrollable-row">
         <h2>Top Albums</h2>
         <div className="album-container">
           <div className="album-list">
@@ -120,7 +130,7 @@ export default function FeaturedBody() {
             ))}
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }
