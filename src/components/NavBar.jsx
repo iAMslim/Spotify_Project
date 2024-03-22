@@ -1,17 +1,18 @@
 import styled from "styled-components";
 import { useStateProvider } from "../utils/StateProvider";
-import { CgProfile } from "react-icons/cg";
 import { useNavigate } from "react-router-dom";
 
 export default function Navbar({ navBackground }) {
   const [{ userInfo }] = useStateProvider();
   const navigate = useNavigate();
-
+  console.log(userInfo);
   return (
     <Container navBackground={navBackground}>
       <div className="avatar">
         <div className="avatar-link" onClick={() => navigate("/profile")}>
-          <CgProfile />
+          <div className="image-container">
+            <img src={userInfo?.image[1].url} alt="User Profile Image" />
+          </div>
           <span>{userInfo?.name}</span>
         </div>
       </div>
@@ -49,6 +50,16 @@ const Container = styled.div`
       text-decoration: none;
       color: white;
       font-weight: bold;
+      .image-container {
+        height: 2rem;
+        width: 2rem;
+        img {
+          height: 2rem;
+          width: 2rem;
+          object-fit: cover;
+          border-radius: 50%;
+        }
+      }
       svg {
         font-size: 2rem;
         background-color: #282828;
