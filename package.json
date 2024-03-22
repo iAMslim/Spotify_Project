@@ -7,8 +7,9 @@
     "dev": "npm-run-all --parallel start src",
     "start": "node server/index.js",
     "src": "cd src/ && npm run dev",
+    "src1": "cd src/ && npm run build",
     "test": "jest",
-    "build": "vite build",
+    "build": "npm-run-all --parallel start src1",
     "server": "node server/index.js"
   },
   "dependencies": {
