@@ -22,10 +22,9 @@ export default function FeaturedBody() {
           },
         }
       );
-      console.log(response);
       const itms = response.data.albums.items;
-      const newReleases = itms.map(({ id, name }) => {
-        return { id, name };
+      const newReleases = itms.map(({ id, name, images, artists }) => {
+        return { id, name, images, artists };
       });
       dispatch({ type: reducerCases.SET_NEW_RELEASES, newReleases });
     };
@@ -46,10 +45,9 @@ export default function FeaturedBody() {
           },
         }
       );
-      console.log(response);
       const itms = response.data.playlists.items;
-      const featuredPlaylists = itms.map(({ id, name }) => {
-        return { id, name };
+      const featuredPlaylists = itms.map(({ id, name, images }) => {
+        return { id, name, images };
       });
       dispatch({
         type: reducerCases.SET_FEATURED_PLAYLISTS,
@@ -58,82 +56,159 @@ export default function FeaturedBody() {
     };
     fetchFeaturedPlaylists();
   }, [token, dispatch]);
-
-  // const handleAlbumClick = (albumId) => {
-  //   window.location.href = `/music/albums/${albumId}`;
-  // };
-
-  // const handlePlaylistClick = (playlistId) => {
-  //   window.location.href = `/playlist/playlists/${playlistId}`;
-  // };
-
+  
   return (
-    <div className="container">
-      <div>
-        {newReleases.map(({ id, name }) => {
-          return (
-            <div key={id}>
-              <p>{name}</p>
-            </div>
-          );
-        })}
-      </div>
-      <div>
-        {featuredPlaylists.map(({ id, name }) => {
-          return (
-            <div key={id}>
-              <p>{name}</p>
-            </div>
-          );
-        })}
-      </div>
-      {/* <div className="scrollable-row">
-        <h2>Top Albums</h2>
-        <div className="album-container">
+    <Container>
+      <div className="album-container">
+        <h1>New Releases</h1>
+        <div className="scrollable-row">
           <div className="album-list">
-            {albums.map((album) => (
-              <AlbumCard
-                key={album.id}
-                onClick={() => handleAlbumClick(album.id)}
-              >
-                {album.images.length > 0 && (
-                  <AlbumImage src={album.images[0].url} alt={album.name} />
-                )}
-                <p>{album.name}</p>
-                <p>
-                  By: {album.artists.map((artist) => artist.name).join(", ")}
-                </p>
-              </AlbumCard>
-            ))}
+            {newReleases.map(({ id, name, images, artists }) => {
+              return (
+                <div className="album-card" key={id}>
+                  <img src={images[0].url} alt="New Releases" />
+                  <p>{name}</p>
+                  <p>By: {artists.map((artist) => artist.name).join(", ")}</p>
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>
-      <br />
-      <div className="scrollable-row">
-        <h2>Featured Playlists</h2>
-        <div className="playlist-container">
+      <div className="playlist-container">
+        <h1>Spotify Playlists</h1>
+        <div className="scrollable-row">
           <div className="playlist-list">
-            {playlists.map((playlist) => (
-              <PlaylistCard
-                key={playlist.id}
-                onClick={() => handlePlaylistClick(playlist.id)}
-              >
-                {playlist.images.length > 0 && (
-                  <PlaylistImage
-                    src={playlist.images[0].url}
-                    alt={playlist.name}
-                  />
-                )}
-                <p>{playlist.name}</p>
-                <p>By: {playlist.owner.display_name}</p>
-              </PlaylistCard>
-            ))}
+            {featuredPlaylists.map(({ id, name, images }) => {
+              return (
+                <div className="playlist-card" key={id}>
+                  <img src={images[0].url} alt="Featured Playlists" />
+                  <p>{name}</p>
+                </div>
+              );
+            })}
           </div>
         </div>
-      </div> */}
-    </div>
+      </div>
+    </Container>
   );
 }
+
+const Container = styled.div`
+  height: 1000px;
+  .album-container {
+    max-height: 450px;
+    margin: 2rem;
+    h1 {
+      color: white;
+    }
+    .scrollable-row {
+      max-height: 500px;
+      overflow-y: auto;
+      &::-webkit {
+        &-scrollbar {
+          width: 0.75rem;
+          &-track {
+            background-color: #b3b3b3;
+            border-radius: 0.75rem;
+          }
+          &-thumb {
+            background-color: #181818;
+            border-radius: 0.75rem;
+            &:hover {
+              cursor: pointer;
+            }
+          }
+        }
+      }
+    }
+    .album-list {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+    }
+    .album-card {
+      border: 1px solid transparent;
+      border-radius: 1rem;
+      padding: 0.5rem;
+      margin: 0.5rem;
+      min-width: 350px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+      background-color: #181818;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: #b3b3b3;
+      img {
+        width: 100%;
+        height: auto;
+        border-radius: 1rem;
+      }
+      &:hover {
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        background-color: #202020;
+      }
+    }
+  }
+  .playlist-container {
+    max-height: 450px;
+    margin: 2rem;
+    h1 {
+      color: white;
+    }
+    .scrollable-row {
+      max-height: 500px;
+      overflow-y: auto;
+      &::-webkit {
+        &-scrollbar {
+          width: 0.75rem;
+          &-track {
+            background-color: #b3b3b3;
+            border-radius: 0.75rem;
+          }
+          &-thumb {
+            background-color: #181818;
+            border-radius: 0.75rem;
+            &:hover {
+              cursor: pointer;
+            }
+          }
+        }
+      }
+    }
+    .playlist-list {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+    }
+    .playlist-card {
+      border: 1px solid transparent;
+      border-radius: 1rem;
+      padding: 0.5rem;
+      margin: 0.5rem;
+      min-width: 350px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+      background-color: #181818;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: #b3b3b3;
+      img {
+        width: 100%;
+        height: auto;
+        border-radius: 1rem;
+      }
+      &:hover {
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        background-color: #202020;
+      }
+    }
+  }
+`;
 
 const AlbumCard = styled.div`
   border: 1px solid transparent; /* Initial transparent border */

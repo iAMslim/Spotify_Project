@@ -3,9 +3,12 @@ import { useEffect } from "react";
 import styled from "styled-components";
 import { reducerCases } from "../utils/Constant";
 import { useStateProvider } from "../utils/StateProvider";
+import { useNavigate } from "react-router-dom";
 
 export default function Playlists() {
   const [{ token, playlists }, dispatch] = useStateProvider();
+  const navigate = useNavigate();
+
   useEffect(() => {
     const getPlaylistData = async () => {
       const response = await axios.get(
@@ -30,7 +33,7 @@ export default function Playlists() {
   };
   return (
     <Container>
-      <ul>
+      <ul onClick={() => navigate("/")}>
         {playlists.map(({ name, id }) => {
           return (
             <li key={id} onClick={() => changeCurrentPlaylist(id)}>
@@ -59,7 +62,7 @@ const Container = styled.div`
     &::-webkit-scrollbar {
       width: 0.7rem;
       &-thumb {
-        background-color: rgba(255, 255, 255, 0.6);
+        background-color: #b3b3b3;
         border-radius: 0.75rem;
         &:hover {
           cursor: pointer;
