@@ -4,11 +4,9 @@ import styled from "styled-components";
 import { useStateProvider } from "../../utils/StateProvider";
 import { AiFillClockCircle } from "react-icons/ai";
 import { reducerCases } from "../../utils/Constant";
-
 export default function HomeBody({ headerBackground }) {
   const [{ token, selectedPlaylist, selectedPlaylistId }, dispatch] =
     useStateProvider();
-
   useEffect(() => {
     const getInitialPlaylist = async () => {
       const response = await axios.get(
@@ -41,6 +39,7 @@ export default function HomeBody({ headerBackground }) {
       dispatch({ type: reducerCases.SET_PLAYLIST, selectedPlaylist });
     };
     getInitialPlaylist();
+    window.history.pushState({}, null, "/");
   }, [token, dispatch, selectedPlaylistId]);
   const playTrack = async (
     id,
@@ -174,7 +173,6 @@ export default function HomeBody({ headerBackground }) {
     </Container>
   );
 }
-
 const Container = styled.div`
   .playlist {
     margin: 0 2rem;

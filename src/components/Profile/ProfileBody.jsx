@@ -3,10 +3,10 @@ import axios from "axios";
 import { useStateProvider } from "../../utils/StateProvider";
 import { reducerCases } from "../../utils/Constant";
 import styled from "styled-components";
-
+import { useNavigate } from "react-router-dom";
 export default function ProfileBody() {
   const [{ token, userInfo }, dispatch] = useStateProvider();
-
+  const navigate = useNavigate();
   useEffect(() => {
     const getUserInfo = async () => {
       const { data } = await axios.get("https://api.spotify.com/v1/me", {
@@ -27,9 +27,14 @@ export default function ProfileBody() {
     getUserInfo();
   }, [dispatch, token]);
 
+  const goLogin = () => {
+    navigate("/login");
+  };
+  if (!token) goLogin();
+
   return (
     <Container>
-      {userInfo && (
+      {token && userInfo && (
         <>
           <div className="profile-main">
             <div className="profile-wrapper">
@@ -48,10 +53,21 @@ export default function ProfileBody() {
           </div>
         </>
       )}
+      {token && (
+        <div className="profile-logout">
+          <button
+            className="logoutButton"
+            onClick={() => {
+              dispatch({ type: reducerCases.SET_TOKEN, null: null });
+            }}
+          >
+            Logout
+          </button>
+        </div>
+      )}
     </Container>
   );
 }
-
 const Container = styled.div`
   .profile-main {
     color: #dddcdc;
@@ -85,6 +101,25 @@ const Container = styled.div`
           object-fit: cover;
           border-radius: 50%;
         }
+      }
+    }
+  }
+  .profile-logout {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    .logoutButton {
+      padding: 1rem 5rem;
+      border-radius: 5rem;
+      background-color: black;
+      border: none;
+      font-size: 1.4rem;
+      cursor: pointer;
+      color: #dddcdc;
+      text-decoration: none;
+      &:hover {
+        color: red;
       }
     }
   }
