@@ -11,6 +11,7 @@ export const initialState = {
   newReleases: [],
   featuredPlaylists: [],
   searchArtists: [],
+  savedPlaylist: [],
 };
 
 const reducer = (state, action) => {
@@ -64,6 +65,11 @@ const reducer = (state, action) => {
       return {
         ...state,
         searchArtists: action.searchArtists,
+      };
+    case reducerCases.SET_SAVED_PLAYLIST:
+      return {
+        ...state,
+        savedPlaylist: action.savedPlaylist,
       };
     default:
       return state;

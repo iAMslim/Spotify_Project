@@ -1,14 +1,15 @@
-import { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { FaSearch } from "react-icons/fa";
 import styled from "styled-components";
 import { useStateProvider } from "../../utils/StateProvider";
-import { FaSearch } from "react-icons/fa";
-
+import { reducerCases } from "../../utils/Constant";
 export default function SearchBody() {
   const [{ token, searchArtists }, dispatch] = useStateProvider();
-
+  const [searchInput, setSearchInput] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
   useEffect(() => {
-    const searchArtist = async (searchValue) => {
+    const searchArtists = async (searchValue) => {
       try {
         const response = await axios.get("https://api.spotify.com/v1/search", {
           headers: {
@@ -17,54 +18,81 @@ export default function SearchBody() {
           },
           params: {
             q: searchValue,
-            type: "artists",
+            type: "artist",
           },
         });
-        console.log(response.artists);
-        searchArtist();
+        console.log("Search result:", response.data);
+        setSearchResults(response.data.artists.items);
       } catch (error) {
         console.error("Error searching artist:", error.message);
       }
     };
-  }, [token, dispatch]);
-
+    if (searchInput && token) {
+      searchArtists(searchInput);
+    }
+  }, [token, searchInput, searchArtists]);
+  const handleInputChange = (e) => {
+    setSearchInput(e.target.value);
+  };
   return (
     <Container>
-      <div className="search-bar">
+      <SearchBar>
         <FaSearch />
-        <input type="text" placeholder="Search for an Artist" />
-      </div>
-      <p>Hi Luke, I know you love Rebecca Purple!</p>
+        <input
+          type="text"
+          placeholder="Search for an Artist"
+          value={searchInput}
+          onChange={handleInputChange}
+        />
+      </SearchBar>
+      <SearchResults>
+        <h2>Artists</h2>
+        <ul>
+          {searchResults.map((artist) => (
+            <li key={artist.id}>
+              {artist.images.length > 0 && (
+                <img src={artist.images[0].url} alt={artist.name} />
+              )}
+              {artist.name}
+            </li>
+          ))}
+        </ul>
+      </SearchResults>
     </Container>
   );
 }
-
 const Container = styled.div`
-  background-color: rebeccapurple;
+  padding: 20px;
+`;
+const SearchBar = styled.div`
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 2rem;
-  height: 15vh;
-  position: sticky;
-  top: 0;
-  transition: 0.3s ease-in-out;
-  background-color: ${({ navBackground }) =>
-    navBackground ? "rgba(0,0,0,0.7)" : "none"};
-  .search-bar {
-    background-color: white;
-    width: 30%;
-    padding: 0.4rem 1rem;
-    border-radius: 2rem;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    input {
-      border: none;
-      height: 2rem;
-      width: 100%;
-      &:focus {
-        outline: none;
+  width: 300px;
+  margin-bottom: 20px;
+  svg {
+    margin-right: 10px;
+  }
+  input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+    font-size: 16px;
+  }
+`;
+const SearchResults = styled.div`
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    li {
+      margin-bottom: 10px;
+      img {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        margin-right: 10px;
       }
     }
   }
