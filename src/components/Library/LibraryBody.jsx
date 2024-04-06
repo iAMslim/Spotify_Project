@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import styled from "styled-components";
 import { useStateProvider } from "../../utils/StateProvider";
@@ -53,8 +53,11 @@ const NoTracksMessage = styled.p`
 export default function LibraryBody({ headerBackground }) {
   const [{ token, savedPlaylist }, dispatch] = useStateProvider();
 
+  const [playlistInitialized, setPlaylistInitialized] = useState(false);
+
   useEffect(() => {
     const getSavedPlaylist = async () => {
+      try {
       const response = await axios.get(`https://api.spotify.com/v1/me/tracks`, {
         headers: {
           Authorization: "Bearer " + token,
@@ -65,6 +68,7 @@ export default function LibraryBody({ headerBackground }) {
         },
       });
       console.log("Response from Spotify API:", response.data);
+
       const savedPlaylist = {
         total: response.data.total,
         tracks: response.data.items.map(({ track }) => ({
@@ -79,10 +83,22 @@ export default function LibraryBody({ headerBackground }) {
         })),
       };
       console.log("Saved Playlist:", savedPlaylist);
-      dispatch({ type: reducerCases.SET_SAVED_PLAYLIST, savedPlaylist });
+
+    if (savedPlaylist) {
+          dispatch({ type: reducerCases.SET_SAVED_PLAYLIST, savedPlaylist });
+          setPlaylistInitialized(true);
+        }
+      } catch (error) {
+        console.error("Error fetching saved playlist:", error);
+        // Handle error, maybe display a message to the user
+      }
     };
-    getSavedPlaylist();
-  }, [token, dispatch]);
+
+    // Fetch saved playlist only if it hasn't been initialized yet
+    if (!playlistInitialized) {
+      getSavedPlaylist();
+    }
+  }, [token, dispatch, playlistInitialized]);
 
   const playTrack = async (
     id,
@@ -134,7 +150,7 @@ export default function LibraryBody({ headerBackground }) {
         <h2>Your Saved Tracks</h2>
       </Header>
       <PlaylistContainer>
-        {savedPlaylist && savedPlaylist.tracks.length > 0 ? (
+      {playlistInitialized && savedPlaylist && savedPlaylist.tracks && savedPlaylist.tracks.length > 0 ? (
           savedPlaylist.tracks.map((track) => (
             <Track key={track.id}>
               <TrackImage src={track.image} alt={track.name} />
